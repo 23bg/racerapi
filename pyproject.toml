@@ -3,9 +3,9 @@ requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "hyperapi"
+name = "RacerAPI"
 version = "0.0.1"
-description = "HyperAPI - Opinionated Backend Framework on Top of FastAPI"
+description = "RacerAPI - Opinionated Backend Framework on Top of FastAPI"
 readme = "README.md"
 requires-python = ">=3.8"
 license = { text = "MIT" }
@@ -46,7 +46,7 @@ dev = [
 
 # ====== CLI ENTRYPOINT ======
 [project.scripts]
-hyperapi = "hyperapi_cli.__main__:main"
+RacerAPI = "RacerAPI_cli.__main__:main"
 
 # ====== PACKAGE DISCOVERY ======
 [tool.setuptools.packages.find]
@@ -54,7 +54,7 @@ where = ["src"]
 
 # ====== INCLUDE TEMPLATE FILES IN WHEELS ======
 [tool.setuptools.package-data]
-hyperapi_cli = ["templates/**/*"]
+RacerAPI_cli = ["templates/**/*"]
 
 # ====== FORMATTERS AND LINTING (OPTIONAL BUT RECOMMENDED) ======
 [tool.black]

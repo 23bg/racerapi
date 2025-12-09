@@ -2,7 +2,7 @@ from pathlib import Path
 import subprocess
 import typer
 
-app = typer.Typer(help="HyperAPI CLI - FastAPI project generator")
+app = typer.Typer(help="RacerAPI CLI - FastAPI project generator")
 
 BASE_DIR = Path(__file__).parent
 TEMPLATES_DIR = BASE_DIR / "templates"
@@ -41,7 +41,7 @@ def new(name: str):
         )
         raise typer.Exit(1)
 
-    typer.echo(f"Creating HyperAPI project in '{name}'...")
+    typer.echo(f"Creating RacerAPI project in '{name}'...")
     copy_tree(
         PROJECT_TEMPLATE_DIR,
         project_root,
@@ -50,9 +50,9 @@ def new(name: str):
             "project_slug": name.replace("-", "_"),
         },
     )
-    typer.echo("✅ HyperAPI project created")
+    typer.echo("✅ RacerAPI project created")
     typer.echo(f"👉 cd {name}")
-    typer.echo("👉 hyperapi dev")
+    typer.echo("👉 RacerAPI dev")
 
 
 @app.command()

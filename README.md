@@ -1,12 +1,12 @@
-# ⚡ HyperAPI
+# ⚡ RacerAPI
 
-A modern, opinionated, and production-ready **Python-based backend framework** built on top of [FastAPI](https://fastapi.tiangolo.com/). HyperAPI provides a clean architecture, essential folder structure, and a CLI tool to bootstrap and scale backend services with ease.
+A modern, opinionated, and production-ready **Python-based backend framework** built on top of [FastAPI](https://fastapi.tiangolo.com/). RacerAPI provides a clean architecture, essential folder structure, and a CLI tool to bootstrap and scale backend services with ease.
 
 ---
 
-## 🚀 Why HyperAPI?
+## 🚀 Why RacerAPI?
 
-HyperAPI is created for developers and teams who need:
+RacerAPI is created for developers and teams who need:
 
 - ✅ **Stability** – Built on proven Python standards and FastAPI.
 - ✅ **Maintainability** – Enforced structure keeps large codebases organized.
@@ -32,6 +32,6 @@ HyperAPI is created for developers and teams who need:
 Clone the repo and install in editable mode:
 
 ```bash
-git clone https://github.com/23bg/hyperapi.git
-cd hyperapi
+git clone https://github.com/23bg/RacerAPI.git
+cd RacerAPI
 pip install -e .

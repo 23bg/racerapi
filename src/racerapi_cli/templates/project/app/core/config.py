@@ -5,7 +5,7 @@ load_dotenv()
 
 
 class Settings:
-    APP_NAME: str = os.getenv("APP_NAME", "HyperAPI")
+    APP_NAME: str = os.getenv("APP_NAME", "RacerAPI")
     APP_ENV: str = os.getenv("APP_ENV", "development")
     APP_DEBUG: bool = os.getenv("APP_DEBUG", "true") == "true"
 
