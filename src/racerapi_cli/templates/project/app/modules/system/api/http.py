@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from app.modules.system.services.system_service import SystemService
 
-router = APIRouter(tags=["System"])
+router = APIRouter(prefix="/system", tags=["System"])
 service = SystemService()
 
 @router.get("/health")

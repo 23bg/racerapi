@@ -19,12 +19,12 @@ def copy_tree(src: Path, dest: Path, context: dict):
             target.mkdir(parents=True, exist_ok=True)
             continue
 
-        content = path.read_text()
+        content = path.read_text(encoding="utf-8")
         for key, value in context.items():
             content = content.replace(f"{{{{ {key} }}}}", value)
 
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(content)
+        target.write_text(content, encoding="utf-8")
 
 
 @app.command()
