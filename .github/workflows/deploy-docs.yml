@@ -2,20 +2,21 @@ name: Deploy RacerAPI Docs
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # <-- IMPORTANT
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/setup-python@v4
         with:
           python-version: "3.11"
 
@@ -26,6 +27,5 @@ jobs:
           pip install mkdocs-awesome-pages-plugin
 
       - name: Build & Deploy Docs
-        working-directory: src/docs   # <<<< THIS IS THE KEY FIX
-        run: |
-          mkdocs gh-deploy --force
+        working-directory: src/docs
+        run: mkdocs gh-deploy --force
