@@ -1,37 +1,139 @@
 # ⚡ RacerAPI
 
-A modern, opinionated, and production-ready **Python-based backend framework** built on top of [FastAPI](https://fastapi.tiangolo.com/). RacerAPI provides a clean architecture, essential folder structure, and a CLI tool to bootstrap and scale backend services with ease.
+**RacerAPI** is a lightweight, opinionated backend framework built on top of **FastAPI**.
+It helps you start projects faster and keep them **organized, scalable, and maintainable** as they grow.
+
+Think of RacerAPI as **FastAPI + structure + CLI**.
 
 ---
 
-## 🚀 Why RacerAPI?
+## ✨ What You Get
 
-RacerAPI is created for developers and teams who need:
-
-- ✅ **Stability** – Built on proven Python standards and FastAPI.
-- ✅ **Maintainability** – Enforced structure keeps large codebases organized.
-- ✅ **CLI Productivity** – Scaffold projects quickly with the built-in CLI.
-- ✅ **Scalability** – Easily extend to microservices and modular architecture.
-- ✅ **Speed** – FastAPI is one of the fastest Python web frameworks.
-
----
-
-## 🧰 Features
-
-- 📁 Predefined scalable project folder structure
-- ⚙️ Built-in CLI for generating projects
-- 🧪 Testing support with `pytest`
-- 🪶 Lightweight and flexible by default
-- 🔐 Ready for integrations (JWT, OAuth, DB, etc.)
-- 📦 Easily extendable with plugins and code generators
+* 📁 **Clean project structure** (controllers, services, schemas)
+* ⚙️ **CLI** to generate projects and modules
+* 🧩 **Modular architecture** for large codebases
+* 🧪 **Testing-ready setup**
+* 🚀 **FastAPI performance**, no heavy abstractions
+* 🔌 Easy to extend with auth, DB, AI, queues, etc.
 
 ---
 
-## 📦 Install (Local Development)
-
-Clone the repo and install in editable mode:
+## 📦 Install
 
 ```bash
-git clone https://github.com/23bg/RacerAPI.git
-cd RacerAPI
-pip install -e .
+pip install racerapi
+```
+
+---
+
+## 🚀 Create a New Project
+
+```bash
+racerapi new myapp
+cd myapp
+racerapi dev
+```
+
+Your app runs at:
+
+```
+http://127.0.0.1:8000
+```
+
+---
+
+## 📁 Project Structure
+
+```text
+app/
+├── main.py
+├── core/
+│   ├── app_factory.py
+│   ├── middleware.py
+│   └── settings.py
+├── modules/
+│   └── users/
+│       ├── controller.py
+│       ├── service.py
+│       ├── schemas.py
+│       └── test/
+```
+
+Each **feature lives in its own module**.
+This keeps your code easy to understand and easy to scale.
+
+---
+
+## 🧩 Example Controller
+
+```python
+from racerapi.core.decorators import Controller, Get
+
+@Controller("system")
+class SystemController:
+
+    @Get("/health")
+    async def health(self):
+        return {"status": "ok"}
+```
+
+No FastAPI imports.
+No router wiring.
+Just business endpoints.
+
+---
+
+## ⚙️ CLI Commands
+
+```bash
+racerapi new <name>        # Create project
+racerapi dev               # Start dev server
+racerapi generate module   # Generate a module
+racerapi doctor            # Validate project structure
+racerapi routes            # List all routes
+racerapi test              # Run tests
+```
+
+---
+
+## 🧪 Testing
+
+RacerAPI projects are **pytest-ready**.
+
+```bash
+racerapi test
+```
+
+Tests live next to the modules they test.
+
+---
+
+## 🧠 Why RacerAPI?
+
+If you like FastAPI but want:
+
+* Less boilerplate
+* Fewer architecture decisions
+* A consistent structure across projects
+
+RacerAPI gives you that—**without hiding FastAPI** or locking you in.
+
+---
+
+## 🧱 Status
+
+* Early-stage but stable core
+* APIs may evolve
+* Feedback and contributions welcome
+
+---
+
+## 📌 Summary
+
+RacerAPI helps you:
+
+* Start faster
+* Stay organized
+* Scale cleanly
+
+**Build products, not project setups.**
