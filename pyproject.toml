@@ -7,7 +7,7 @@ name = "racerapi"
 version = "0.0.3"
 description = "RacerAPI - Opinionated Backend Framework on Top of FastAPI"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 license = { text = "MIT" }
 
 authors = [
@@ -17,7 +17,8 @@ authors = [
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
   "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
   "Intended Audience :: Developers",
@@ -25,15 +26,14 @@ classifiers = [
   "Topic :: Software Development :: Libraries :: Application Frameworks",
 ]
 
-# ====== RUNTIME DEPENDENCIES ======
 dependencies = [
   "fastapi>=0.115",
   "uvicorn[standard]>=0.30",
-  "typer[all]>=0.9",
-  "python-dotenv>=1.0.0",
+  "typer>=0.9",
+  "pydantic>=2.6",
+  "pydantic-settings>=2.2",
 ]
 
-# ====== OPTIONAL DEV DEPENDENCIES ======
 [project.optional-dependencies]
 dev = [
   "pytest>=8.0",
@@ -42,24 +42,28 @@ dev = [
   "ruff>=0.4.0",
   "mypy>=1.9.0",
   "pre-commit>=3.7.0",
+  "python-dotenv>=1.0.0",
 ]
 
-# ====== CLI ENTRYPOINT ======
+ai = ["openai>=1.0.0"]
+
 [project.scripts]
 racerapi = "racerapi.__main__:main"
 
-# ====== PACKAGE DISCOVERY ======
+[project.urls]
+Homepage = "https://github.com/your-org/racerapi"
+Documentation = "https://github.com/your-org/racerapi#readme"
+
+
 [tool.setuptools.packages.find]
 where = ["src"]
 
-# ====== INCLUDE TEMPLATE FILES IN WHEELS ======
 [tool.setuptools.package-data]
 racerapi = ["templates/**/*"]
 
-# ====== FORMATTERS AND LINTING (OPTIONAL BUT RECOMMENDED) ======
 [tool.black]
 line-length = 88
-target-version = ["py38"]
+target-version = ["py310"]
 
 [tool.ruff]
 line-length = 88
@@ -67,6 +71,6 @@ select = ["E", "F", "I"]
 ignore = ["E501"]
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.10"
 ignore_missing_imports = true
 strict = false

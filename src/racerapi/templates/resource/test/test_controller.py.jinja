@@ -1,0 +1,93 @@
+from fastapi.testclient import TestClient
+
+from racerapi.core.app_factory import racerAPI
+from racerapi.core.settings import AppSettings
+
+
+def _create_client() -> TestClient:
+    """
+    Build FastAPI app using the real RacerAPI factory.
+    """
+    settings = AppSettings(
+        APP_NAME="TestApp",
+        ENV="test",
+    )
+    app = racerAPI(settings)
+    return TestClient(app)
+
+
+# ----------------------------
+# LIST
+# GET /{{class_name | lower}}
+# ----------------------------
+def test_list_{{ class_name | lower }}():
+    client = _create_client()
+
+    response = client.get("/{{ class_name | lower }}")
+
+    assert response.status_code == 200
+    assert isinstance(response.json(), list)
+
+
+# ----------------------------
+# GET BY ID
+# GET /{{class_name | lower}}/{id}
+# ----------------------------
+def test_get_{{ class_name | lower }}():
+    client = _create_client()
+
+    response = client.get("/{{ class_name | lower }}/1")
+
+    assert response.status_code == 200
+    body = response.json()
+
+    assert "id" in body
+
+
+# ----------------------------
+# CREATE
+# POST /{{class_name | lower}}
+# ----------------------------
+def test_create_{{ class_name | lower }}():
+    client = _create_client()
+
+    payload = {
+        "name": "Test {{ class_name }}"
+    }
+
+    response = client.post("/{{ class_name | lower }}", json=payload)
+
+    assert response.status_code == 200
+    body = response.json()
+
+    assert body["name"] == payload["name"]
+    assert "id" in body
+
+
+# ----------------------------
+# UPDATE
+# PUT /{{class_name | lower}}/{id}
+# ----------------------------
+def test_update_{{ class_name | lower }}():
+    client = _create_client()
+
+    payload = {
+        "name": "Updated {{ class_name }}"
+    }
+
+    response = client.put("/{{ class_name | lower }}/1", json=payload)
+
+    assert response.status_code == 200
+    assert response.json()["name"] == payload["name"]
+
+
+# ----------------------------
+# DELETE
+# DELETE /{{class_name | lower}}/{id}
+# ----------------------------
+def test_delete_{{ class_name | lower }}():
+    client = _create_client()
+
+    response = client.delete("/{{ class_name | lower }}/1")
+
+    assert response.status_code in (200, 204)

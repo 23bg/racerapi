@@ -1,0 +1,23 @@
+
+from dataclasses import dataclass
+from typing import Optional
+
+
+@dataclass(frozen=True)
+class {{ class_name }}:
+    """
+    Domain entity for {{ class_name }}.
+    Pure business object, no framework dependencies.
+    """
+
+    id: Optional[int]
+    name: str
+
+    def rename(self, new_name: str) -> "{{ class_name }}":
+        if not new_name:
+            raise ValueError("Name cannot be empty")
+
+        return {{ class_name }}(
+            id=self.id,
+            name=new_name,
+        )

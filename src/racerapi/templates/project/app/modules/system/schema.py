@@ -1,4 +1,16 @@
-class SystemSchema:
-    def __init__(self):
-        self.name = "MyApp"
-        self.version = "0.0.3"
+from pydantic import BaseModel
+
+
+class SystemBase(BaseModel):
+    name: str
+
+
+class SystemCreate(SystemBase):
+    pass
+
+class SystemUpdate(SystemBase):
+    pass
+
+
+class SystemOut(SystemBase):
+    id: int

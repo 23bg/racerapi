@@ -1,0 +1,61 @@
+import pytest
+
+from app.modules.{{ class_name | lower }}.services import {{ class_name }}Service
+from app.modules.{{ class_name | lower }}.schemas import (
+    {{ class_name }}Create,
+    {{ class_name }}Update,
+)
+
+
+@pytest.mark.asyncio
+async def test_list_returns_list():
+    service = {{ class_name }}Service()
+
+    result = await service.list()
+
+    assert isinstance(result, list)
+
+
+@pytest.mark.asyncio
+async def test_get_not_implemented():
+    service = {{ class_name }}Service()
+
+    with pytest.raises(NotImplementedError):
+        await service.get(1)
+
+
+@pytest.mark.asyncio
+async def test_create_returns_out_schema():
+    service = {{ class_name }}Service()
+
+    payload = {{ class_name }}Create(
+        name="Test {{ class_name }}"
+    )
+
+    result = await service.create(payload)
+
+    assert result.id == 1
+    assert result.name == payload.name
+
+
+@pytest.mark.asyncio
+async def test_update_returns_updated_out_schema():
+    service = {{ class_name }}Service()
+
+    payload = {{ class_name }}Update(
+        name="Updated {{ class_name }}"
+    )
+
+    result = await service.update(1, payload)
+
+    assert result.id == 1
+    assert result.name == payload.name
+
+
+@pytest.mark.asyncio
+async def test_delete_returns_none():
+    service = {{ class_name }}Service()
+
+    result = await service.delete(1)
+
+    assert result is None

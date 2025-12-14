@@ -1,0 +1,59 @@
+from typing import List
+from .schemas import (
+    {{ class_name }}Create,
+    {{ class_name }}Update,
+    {{ class_name }}Out,
+)
+
+
+class {{ class_name }}Service:
+    """
+    {{ class_name }} Service
+    Contains business logic only.
+    No FastAPI, no decorators, no transport concerns.
+    """
+
+    async def list(self) -> List[{{ class_name }}Out]:
+        """
+        Return all {{ class_name | lower }} records.
+        """
+        # TODO: fetch from repository / data source
+        return []
+
+    async def get(self, id: int) -> {{ class_name }}Out:
+        """
+        Get a single {{ class_name | lower }} by ID.
+        """
+        # TODO: fetch by id
+        raise NotImplementedError
+
+    async def create(self, payload: {{ class_name }}Create) -> {{ class_name }}Out:
+        """
+        Create a new {{ class_name | lower }}.
+        """
+        # TODO: persist entity
+        return {{ class_name }}Out(
+            id=1,
+            **payload.model_dump(),
+        )
+
+    async def update(
+        self,
+        id: int,
+        payload: {{ class_name }}Update,
+    ) -> {{ class_name }}Out:
+        """
+        Update an existing {{ class_name | lower }}.
+        """
+        # TODO: update entity
+        return {{ class_name }}Out(
+            id=id,
+            **payload.model_dump(),
+        )
+
+    async def delete(self, id: int) -> None:
+        """
+        Delete a {{ class_name | lower }}.
+        """
+        # TODO: delete entity
+        return None

@@ -2,7 +2,7 @@
 from racerapi.core.app_factory import racerAPI
 from racerapi.core.settings import AppSettings
 from racerapi.core.application import Application
-from app.core.logging import logger
+from app.core.logging import Logger
 
 settings = AppSettings(
    title="My AI Backend",
@@ -10,7 +10,7 @@ settings = AppSettings(
     cors_origins=["*"],
     description="Enterprise AI Backend built on RacerAPI", 
     middlewares=[
-        Application.add_middleware(logger())
+        Logger
         
     ]
 )

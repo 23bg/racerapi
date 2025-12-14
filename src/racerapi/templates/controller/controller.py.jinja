@@ -1,61 +1,61 @@
 from racerapi.core.decorators import Controller, Get, Post, Put, Delete
-from .service import SystemService
-from .schema import (
-    SystemCreate,
-    SystemUpdate,
-    SystemOut,
+from .services import {{ class_name }}Service
+from .schemas import (
+    {{ class_name }}Create,
+    {{ class_name }}Update,
+    {{ class_name }}Out,
 )
 
 
-@Controller("system")
-class SystemController:
+@Controller("{{ class_name | lower }}")
+class {{ class_name }}Controller:
     """
-    System HTTP Controller
+    {{ class_name }} HTTP Controller
     Handles transport-level concerns only.
     """
 
     def __init__(self):
-        self.service = SystemService()
+        self.service = {{ class_name }}Service()
 
     # ----------------------------
     # LIST
-    # GET /system
+    # GET /{{ class_name | lower }}
     # ----------------------------
     @Get("/")
-    async def list(self) -> list[SystemOut]:
+    async def list(self) -> list[{{ class_name }}Out]:
         return await self.service.list()
 
     # ----------------------------
     # GET BY ID
-    # GET /system/{id}
+    # GET /{{ class_name | lower }}/{{ '{id}' }}
     # ----------------------------
     @Get("/{id}")
-    async def get(self, id: int) -> SystemOut:
+    async def get(self, id: int) -> {{ class_name }}Out:
         return await self.service.get(id)
 
     # ----------------------------
     # CREATE
-    # POST /system
+    # POST /{{ class_name | lower }}
     # ----------------------------
     @Post("/")
-    async def create(self, payload: SystemCreate) -> SystemOut:
+    async def create(self, payload: {{ class_name }}Create) -> {{ class_name }}Out:
         return await self.service.create(payload)
 
     # ----------------------------
     # UPDATE
-    # PUT /system/{id}
+    # PUT /{{ class_name | lower }}/{{ '{id}' }}
     # ----------------------------
     @Put("/{id}")
     async def update(
         self,
         id: int,
-        payload: SystemUpdate,
-    ) -> SystemOut:
+        payload: {{ class_name }}Update,
+    ) -> {{ class_name }}Out:
         return await self.service.update(id, payload)
 
     # ----------------------------
     # DELETE
-    # DELETE /system/{id}
+    # DELETE /{{ class_name | lower }}/{{ '{id}' }}
     # ----------------------------
     @Delete("/{id}")
     async def delete(self, id: int) -> None:

@@ -1,32 +1,51 @@
 # racerapi/core/module_loader.py
 
 import importlib
-import pkgutil
+from pathlib import Path
 from fastapi import FastAPI
+
 from racerapi.core.registry import get_registered_controllers
 from racerapi.core.controller import build_router
 
 
-def discover_modules(base_package="app.modules"):
-    """Auto-import all modules under app.modules."""
-    try:
-        package = importlib.import_module(base_package)
-    except ImportError:
-        print(f"❌ Could not import {base_package}")
+MODULES_ROOT = Path("app/modules")
+
+
+def discover_modules() -> None:
+    """
+    Discover and import controller modules only.
+    Tests, services, domains are never imported here.
+    """
+    if not MODULES_ROOT.exists():
         return
 
-    for module in pkgutil.walk_packages(package.__path__, package.__name__ + "."):
-        module_name = module.name
+    for module_dir in MODULES_ROOT.iterdir():
+        if not module_dir.is_dir():
+            continue
+
+        controller_file = module_dir / "controller.py"
+        if not controller_file.exists():
+            continue
+
+        module_path = f"app.modules.{module_dir.name}.controller"
+
         try:
-            importlib.import_module(module_name)
-        except Exception as e:
-            print(f"❌ Failed loading module {module_name}: {e}")
+            importlib.import_module(module_path)
+        except Exception as exc:
+            raise RuntimeError(
+                f"Failed loading controller module {module_path}: {exc}"
+            ) from exc
 
 
-def load_controllers(app: FastAPI):
+def load_controllers(app: FastAPI) -> None:
+    """
+    Build routers from registered controllers and attach them to FastAPI.
+    """
     for entry in get_registered_controllers():
         prefix = entry["prefix"]
         controller = entry["controller"]
+
         router = build_router(prefix, controller)
         app.include_router(router)
+
         print(f"✓ Registered Controller: {controller.__name__} → /{prefix}")

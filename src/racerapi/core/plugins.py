@@ -1,22 +1,26 @@
 # racerapi/core/plugins.py
 
-import importlib_metadata
+from importlib import metadata as importlib_metadata
+from fastapi import FastAPI
+from racerapi.core.settings import AppSettings
 
 
-def load_plugins(app, cli_app=None):
-    """Load plugins using Python entry points."""
-    for ep in importlib_metadata.entry_points().get("racerapi.plugins", []):
-        plugin_cls = ep.load()
-        plugin = plugin_cls()
+def load_plugins(app: FastAPI, settings: AppSettings) -> None:
+    """
+    Load RacerAPI plugins via entry points.
+    Compatible with Python 3.10+.
+    """
 
-        if hasattr(plugin, "register"):
-            plugin.register(app)
+    try:
+        entry_points = importlib_metadata.entry_points(group="racerapi.plugins")
+    except TypeError:
+        # Fallback for very old Python (optional)
+        entry_points = importlib_metadata.entry_points().get("racerapi.plugins", [])
 
-        if cli_app and hasattr(plugin, "register_cli"):
-            plugin.register_cli(cli_app)
-
-        if hasattr(plugin, "on_startup"):
-            app.add_event_handler("startup", lambda: plugin.on_startup(app))
-
-        if hasattr(plugin, "on_shutdown"):
-            app.add_event_handler("shutdown", lambda: plugin.on_shutdown(app))
+    for ep in entry_points:
+        try:
+            plugin = ep.load()
+            plugin(app, settings)
+            print(f"✓ Loaded plugin: {ep.name}")
+        except Exception as exc:
+            raise RuntimeError(f"Failed loading plugin '{ep.name}': {exc}") from exc
