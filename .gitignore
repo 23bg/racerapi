@@ -1,12 +1,18 @@
-# Byte-compiled / optimized / DLL files
+# ==================================================
+# Python bytecode / cache
+# ==================================================
 __pycache__/
 *.py[cod]
 *$py.class
 
+# ==================================================
 # C extensions
+# ==================================================
 *.so
 
+# ==================================================
 # Distribution / packaging
+# ==================================================
 .Python
 build/
 develop-eggs/
@@ -23,65 +29,100 @@ var/
 .installed.cfg
 *.egg
 
+# ==================================================
 # Virtual environments
+# ==================================================
 venv/
-.env/
 .venv/
 ENV/
-env.bak/
 env/
+env.bak/
 
-# Jupyter Notebook
-.ipynb_checkpoints
+# ==================================================
+# Environment variables
+# ==================================================
+.env
+.env.*
+*.env
 
-# pytest
-.cache
+# ==================================================
+# Testing & coverage
+# ==================================================
+.cache/
 .pytest_cache/
 nosetests.xml
 coverage.xml
 *.cover
 *.py,cover
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# pyre
-.pyre/
-
-# pytype
-.pytype/
-
-# coverage
 htmlcov/
 .tox/
 .coverage
 .coverage.*
 
-# VSCode
-.vscode/
+# ==================================================
+# Type checking
+# ==================================================
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
 
-# PyCharm
+# ==================================================
+# Jupyter
+# ==================================================
+.ipynb_checkpoints/
+
+# ==================================================
+# Logs
+# ==================================================
+*.log
+racerapi.log
+*.uvicorn.log
+
+# ==================================================
+# CLI / Framework runtime
+# ==================================================
+.racerapi/
+.racerapi-cache/
+
+# ==================================================
+# Templates safety (CRITICAL)
+# Never commit compiled files inside templates
+# ==================================================
+templates/**/__pycache__/
+templates/**/*.pyc
+templates/**/*.pyo
+
+# ==================================================
+# Editors
+# ==================================================
+.vscode/
 .idea/
 
+# ==================================================
+# OS files
+# ==================================================
 # macOS
 .DS_Store
+.AppleDouble
+.LSOverride
 
 # Windows
 Thumbs.db
 ehthumbs.db
 Desktop.ini
 
-# Logs
-*.log
-
+# ==================================================
+# Dependency managers
+# ==================================================
 # pipenv
 Pipfile.lock
 
 # poetry
 poetry.lock
 
-# local settings
-*.env
-.env.*
+# ==================================================
+# Node (if used for tooling later)
+# ==================================================
+node_modules/

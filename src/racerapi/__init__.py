@@ -1,1 +1,3 @@
-__version__ = "0.0.4"
+"""RacerAPI production FastAPI modular monolith."""
+
+__version__ = "1.0.0"

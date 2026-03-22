@@ -1,11 +1,11 @@
 [build-system]
-requires = ["setuptools>=69", "wheel"]
+requires = ["setuptools==75.6.0", "wheel==0.45.1"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "racerapi"
-version = "0.0.4"
-description = "RacerAPI - Opinionated Backend Framework on Top of FastAPI"
+version = "1.0.0"
+description = "Production-grade FastAPI modular monolith"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
@@ -27,28 +27,28 @@ classifiers = [
 ]
 
 dependencies = [
-  "fastapi>=0.115",
-  "uvicorn[standard]>=0.30",
-  "typer>=0.9",
-  "pydantic>=2.6",
-  "pydantic-settings>=2.2",
+  "fastapi==0.115.6",
+  "uvicorn[standard]==0.32.1",
+  "sqlalchemy==2.0.36",
+  "pydantic==2.10.3",
+  "pydantic-settings==2.6.1",
+  "email-validator==2.2.0",
 ]
 
 [project.optional-dependencies]
 dev = [
-  "pytest>=8.0",
-  "pytest-cov>=4.0",
-  "black>=24.0",
-  "ruff>=0.4.0",
-  "mypy>=1.9.0",
-  "pre-commit>=3.7.0",
-  "python-dotenv>=1.0.0",
+  "pytest==8.3.4",
+  "pytest-cov==6.0.0",
+  "httpx==0.28.1",
+  "black==24.10.0",
+  "ruff==0.8.6",
+  "mypy==1.13.0",
+  "pre-commit==4.0.1",
+  "python-dotenv==1.0.1",
 ]
 
-ai = ["openai>=1.0.0"]
-
 [project.scripts]
-racerapi = "racerapi.__main__:main"
+racerapi = "racerapi.main:run"
 
 [project.urls]
 Homepage = "https://github.com/your-org/racerapi"
@@ -59,7 +59,7 @@ Documentation = "https://github.com/your-org/racerapi#readme"
 where = ["src"]
 
 [tool.setuptools.package-data]
-racerapi = ["templates/**/*"]
+racerapi = []
 
 [tool.black]
 line-length = 88
@@ -67,8 +67,14 @@ target-version = ["py310"]
 
 [tool.ruff]
 line-length = 88
-select = ["E", "F", "I"]
-ignore = ["E501"]
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501", "B008"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S101"]
 
 [tool.mypy]
 python_version = "3.10"

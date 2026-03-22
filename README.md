@@ -1,37 +1,51 @@
-# ⚡ RacerAPI
+# RacerAPI
 
-A modern, opinionated, and production-ready **Python-based backend framework** built on top of [FastAPI](https://fastapi.tiangolo.com/). RacerAPI provides a clean architecture, essential folder structure, and a CLI tool to bootstrap and scale backend services with ease.
+Production-grade FastAPI modular monolith baseline.
 
----
+## Architecture
 
-## 🚀 Why RacerAPI?
+- FastAPI (no framework wrapping)
+- Domain modules in `src/racerapi/modules`
+- Layering: API -> Service -> Repo -> DB
+- FastAPI `Depends` for DI
+- No cross-module imports
 
-RacerAPI is created for developers and teams who need:
-
-- ✅ **Stability** – Built on proven Python standards and FastAPI.
-- ✅ **Maintainability** – Enforced structure keeps large codebases organized.
-- ✅ **CLI Productivity** – Scaffold projects quickly with the built-in CLI.
-- ✅ **Scalability** – Easily extend to microservices and modular architecture.
-- ✅ **Speed** – FastAPI is one of the fastest Python web frameworks.
-
----
-
-## 🧰 Features
-
-- 📁 Predefined scalable project folder structure
-- ⚙️ Built-in CLI for generating projects
-- 🧪 Testing support with `pytest`
-- 🪶 Lightweight and flexible by default
-- 🔐 Ready for integrations (JWT, OAuth, DB, etc.)
-- 📦 Easily extendable with plugins and code generators
-
----
-
-## 📦 Install (Local Development)
-
-Clone the repo and install in editable mode:
+## Quick Start
 
 ```bash
-git clone https://github.com/23bg/RacerAPI.git
-cd RacerAPI
+python -m venv .venv
+.venv\Scripts\activate
 pip install -e .
+```
+
+Run the application:
+
+```bash
+python -m racerapi.main
+```
+
+Health check:
+
+```bash
+curl http://127.0.0.1:8000/health
+```
+
+## Release Validation Commands
+
+```bash
+python -m pytest -q
+python -m ruff check src tests
+python scripts/check_architecture.py
+```
+
+## Environment
+
+Copy `.env.example` to `.env` and adjust values for your environment.
+
+Key variables:
+
+- `RACERAPI_ENV=dev|test|prod`
+- `RACERAPI_DATABASE_URL=...`
+- `RACERAPI_LOG_LEVEL=INFO`
+- `RACERAPI_DEBUG=false`
+
