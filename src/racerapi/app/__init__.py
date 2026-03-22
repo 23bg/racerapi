@@ -14,7 +14,7 @@ logger = get_logger(__name__)
 def create_app(
     lifespan: Callable[[FastAPI], AsyncIterator[None]] | None = None,
 ) -> FastAPI:
-    app = FastAPI(title="RacerAPI", version="1.0.0", lifespan=lifespan)
+    app = FastAPI(title="RacerAPI", version="0.1.0", lifespan=lifespan)
 
     @app.middleware("http")
     async def request_logging_middleware(request, call_next):
