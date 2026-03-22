@@ -1,88 +1,61 @@
-site_name: RacerAPI Documentation
-
-repo_url: https://github.com/23bg/racerapi
-repo_name: GitHub
-repo_icon: fontawesome/brands/github
-
-edit_uri: edit/main/docs/
-
-theme:
-  name: material
-
-  logo: assets/logo.png
-  favicon: assets/favicon.png
-
-  code:
-    light: github
-    dark: dracula
-
-  palette:
-    - scheme: default
-      primary: deep orange
-      accent: red
-      toggle:
-        icon: material/weather-night
-        name: Switch to dark mode
-
-    - scheme: slate
-      primary: deep orange
-      accent: red
-      toggle:
-        icon: material/weather-sunny
-        name: Switch to light mode
-
-  font:
-    text: "DM Sans"
-    code: "Fira Code"
-
-  features:
-    - navigation.top
-    - navigation.tabs
-    - navigation.instant
-    - navigation.tracking
-    - content.code.copy
-    - content.tabs.link
-    - palette.toggle
-    - search.suggest
-    - search.highlight
-    - search.share
-    - navigation.expand
-    - navigation.footer
-
-plugins:
-  - search
-  - mkdocstrings
-  - awesome-pages
-
-extra:
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/23bg/racerapi
-  copyright:
-    text: "© 2025 RacerAPI Framework"
-
-extra_css:
-  - stylesheets/extra.css
+site_name: RacerAPI Engineering Handbook
+site_description: FastAPI modular monolith architecture and development contract
+site_url: https://example.com/racerapi-docs
+repo_name: racerapi
+repo_url: https://github.com/your-org/racerapi
 
 nav:
   - Home: index.md
-  - Getting Started: getting-started.md
-  - Features:
-      - Controllers: core/controllers.md
-      - Decorators: core/decorators.md
-      - Lifecycle: core/lifecycle.md
+  - Architecture:
+      - Overview: architecture/overview.md
+      - Modular Monolith: architecture/modular-monolith.md
+      - Request Flow: architecture/request-flow.md
+      - Dependency Injection: architecture/dependency-injection.md
+      - Module Boundaries: architecture/module-boundaries.md
+  - Modules:
+      - Module Structure: modules/structure.md
+      - Users Module: modules/users.md
+      - Add New Module: modules/adding-new-module.md
+  - Backend Layers:
+      - API Layer: backend/api-layer.md
+      - Service Layer: backend/service-layer.md
+      - Repo Layer: backend/repo-layer.md
+      - Schemas: backend/schemas.md
+  - Core:
+      - Configuration: core/config.md
+      - Database: core/database.md
+      - Dependencies: core/dependencies.md
+      - Error Handling: core/error-handling.md
+  - Development:
+      - Setup: development/setup.md
+      - Running: development/running.md
+      - Testing: development/testing.md
+      - Debugging: development/debugging.md
+  - Standards:
+      - Coding Rules: standards/coding-rules.md
+      - Anti-Patterns: standards/anti-patterns.md
+      - Review Checklist: standards/review-checklist.md
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+
+plugins:
+  - search
 
 markdown_extensions:
   - admonition
-  - footnotes
-  - def_list
   - toc:
-      permalink: True
-  - pymdownx.highlight
+      permalink: true
+  - tables
+  - attr_list
+  - def_list
   - pymdownx.superfences
-  - pymdownx.details
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.emoji:
-      emoji_index: !!python/name:pymdownx.emoji.twemoji
-      emoji_generator: !!python/name:pymdownx.emoji.to_png
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+
+extra_css:
+  - stylesheets/extra.css
