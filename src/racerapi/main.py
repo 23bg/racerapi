@@ -1,19 +1,19 @@
 from contextlib import asynccontextmanager
 
+# Configure logging early to avoid formatting issues from imports
+from racerapi.core.logger import configure_logging, get_logger
+
+configure_logging()
+
 import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 from racerapi.app import create_app
 from racerapi.core.exceptions import ConflictError, NotFoundError, ValidationError
-from racerapi.core.logger import configure_logging, get_logger
 from racerapi.db.base import Base
-from racerapi.db.session import engine
-from racerapi.modules.users import models as user_models
+from racerapi.db.session import get_engine
 
-_ = user_models
-
-configure_logging()
 logger = get_logger(__name__)
 
 
@@ -71,7 +71,12 @@ def _install_exception_handlers(app: FastAPI) -> None:
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
-    Base.metadata.create_all(bind=engine)
+    # Initialize engine lazily. For production, migrations (Alembic) should
+    # be used instead of `create_all`.
+    engine = get_engine()
+    # DO NOT create or modify schema at application startup. Database schema
+    # management must be performed via migrations (Alembic) or explicit
+    # provisioning scripts. The application should assume the schema exists.
     yield
 
 

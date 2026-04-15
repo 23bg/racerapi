@@ -1,13 +1,13 @@
-from pydantic import BaseModel, ConfigDict, EmailStr, Field
+from pydantic import BaseModel, ConfigDict, Field, EmailStr
 
 
 class UserCreate(BaseModel):
     email: EmailStr
-    full_name: str = Field(min_length=2, max_length=255)
+    full_name: str = Field(min_length=2)
 
 
 class UserUpdate(BaseModel):
-    full_name: str | None = Field(default=None, min_length=2, max_length=255)
+    full_name: str | None = None
     is_active: bool | None = None
 
 
@@ -18,8 +18,3 @@ class UserRead(BaseModel):
     is_active: bool
 
     model_config = ConfigDict(from_attributes=True)
-
-
-class UsersListResponse(BaseModel):
-    items: list[UserRead]
-    total: int

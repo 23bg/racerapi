@@ -1,34 +1,57 @@
-from racerapi.core.exceptions import ConflictError, NotFoundError, ValidationError
-from racerapi.modules.users.repo import UserRepo
-from racerapi.modules.users.schemas import UserCreate, UserUpdate
+from racerapi.core.exceptions import NotFoundError, ConflictError, ValidationError
+from .repo import UserRepo
+from .schemas import UserCreate, UserUpdate
 
 
 class UserService:
     def __init__(self, repo: UserRepo):
         self.repo = repo
 
-    def get_user(self, user_id: int):
-        user = self.repo.get_by_id(user_id)
-        if user is None:
-            raise NotFoundError(f"User {user_id} was not found")
-        return user
+    def get_by_id(self, item_id: int):
+        obj = self.repo.get_by_id(item_id)
+        if obj is None:
+            raise NotFoundError(f"User {item_id} not found")
+        return obj
+
+    def list_items(self, page: int, page_size: int):
+        if page < 1 or page_size < 1:
+            raise ValidationError("page and page_size must be positive")
+        offset = (page - 1) * page_size
+        return self.repo.list_items(offset=offset, limit=page_size)
+
+    def create(self, payload: UserCreate):
+        existing = None
+        if hasattr(self.repo, 'get_by_unique'):
+            existing = self.repo.get_by_unique(payload.email)
+        elif hasattr(self.repo, 'get_by_email'):
+            existing = self.repo.get_by_email(payload.email)
+        if existing:
+            raise ConflictError("duplicate")
+        return self.repo.create(**payload.model_dump())
+
+    def update(self, item_id: int, payload: UserUpdate):
+        obj = self.get_by_id(item_id)
+        for k, v in payload.model_dump(exclude_none=True).items():
+            setattr(obj, k, v)
+        return self.repo.update(obj)
+
+    def delete(self, item_id: int):
+        obj = self.get_by_id(item_id)
+        self.repo.delete(item_id)
+        return True
+
+    # Backwards-compatible aliases
+    def create_user(self, payload: UserCreate):
+        return self.create(payload)
+
+    def get_user(self, item_id: int):
+        return self.get_by_id(item_id)
 
     def list_users(self, page: int, page_size: int):
-        if page < 1 or page_size < 1:
-            raise ValidationError("page and page_size must be positive integers")
-        offset = (page - 1) * page_size
-        return self.repo.list_users(offset=offset, limit=page_size)
+        return self.list_items(page, page_size)
 
-    def create_user(self, payload: UserCreate):
-        existing = self.repo.get_by_email(payload.email)
-        if existing is not None:
-            raise ConflictError(f"User with email {payload.email} already exists")
-        return self.repo.create(email=str(payload.email), full_name=payload.full_name)
+    def update_user(self, item_id: int, payload: UserUpdate):
+        return self.update(item_id, payload)
 
-    def update_user(self, user_id: int, payload: UserUpdate):
-        user = self.get_user(user_id)
-        if payload.full_name is not None:
-            user.full_name = payload.full_name
-        if payload.is_active is not None:
-            user.is_active = payload.is_active
-        return self.repo.update(user)
+    def delete_user(self, item_id: int):
+        return self.delete(item_id)

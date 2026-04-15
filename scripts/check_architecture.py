@@ -42,7 +42,11 @@ def _validate_file(path: Path) -> list[str]:
             mod = node.module
 
             # Rule 1: no cross-module imports
+            # Allowlist framework internals under racerapi.modules (e.g. registry)
+            ALLOWLIST = {"racerapi.modules.registry", "racerapi.modules.__init__"}
             if current_module and mod.startswith("racerapi.modules."):
+                if mod in ALLOWLIST:
+                    continue
                 parts = mod.split(".")
                 if len(parts) >= 3:
                     imported_module = parts[2]
@@ -51,7 +55,7 @@ def _validate_file(path: Path) -> list[str]:
                             f"{path}: cross-module import '{mod}' is forbidden"
                         )
 
-            # Rule 2: no DB in routes
+            # Rule 2: no DB in routes and API must not import repository layer
             if _is_api_file(path):
                 if mod in {
                     "sqlalchemy",
@@ -62,6 +66,9 @@ def _validate_file(path: Path) -> list[str]:
                     violations.append(
                         f"{path}: api layer must not import DB/session module '{mod}'"
                     )
+                # disallow importing repo implementation from api layer
+                if mod.split(".")[-1] == "repo":
+                    violations.append(f"{path}: api layer must not import repo module '{mod}'")
 
             # Rule 3: no business exception semantics in repo
             if _is_repo_file(path) and mod == "racerapi.core.exceptions":
@@ -69,10 +76,22 @@ def _validate_file(path: Path) -> list[str]:
                     f"{path}: repo layer must not import domain/business exceptions"
                 )
 
+            # Rule 4: service layer must not import API
+            if path.name == "service.py" and mod.split(".")[-1] == "api":
+                violations.append(
+                    f"{path}: service layer must not import API layer module '{mod}'"
+                )
+
     return violations
 
 
-def main() -> int:
+def main(report: bool = False) -> int:
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--report", action="store_true", help="Print a report of violations")
+    args = parser.parse_args()
+
     violations: list[str] = []
 
     for path in SRC.rglob("*.py"):
@@ -81,12 +100,18 @@ def main() -> int:
         violations.extend(_validate_file(path))
 
     if violations:
-        print("Architecture check failed:")
-        for v in violations:
-            print(f" - {v}")
+        if args.report:
+            print("Architecture check report:")
+            for v in violations:
+                print(f" - {v}")
+        else:
+            print("Architecture check failed: see --report for details")
         return 1
 
-    print("Architecture check passed")
+    if args.report:
+        print("Architecture check passed: no violations found")
+    else:
+        print("Architecture check passed")
     return 0
 
 

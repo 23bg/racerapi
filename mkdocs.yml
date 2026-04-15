@@ -1,0 +1,42 @@
+site_name: RacerAPI
+site_description: Production-grade FastAPI modular framework
+site_author: RacerAPI Team
+theme:
+  name: material
+plugins:
+  - search
+  - mermaid2
+features:
+  - navigation.tabs
+  - navigation.sections
+  - content.code.copy
+  - content.tabs.link
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Project Structure: project-structure.md
+  - Core Concepts:
+      - Architecture: core/architecture.md
+      - Module System: core/module-system.md
+      - Dependency Injection: core/dependency-injection.md
+  - CLI:
+      - Overview: cli/overview.md
+      - Commands: cli/commands.md
+      - Generators: cli/generators.md
+  - Database:
+      - Overview: database/overview.md
+      - Migrations: database/migrations.md
+  - Testing:
+      - Overview: testing/overview.md
+      - Fixtures: testing/fixtures.md
+  - Architecture:
+      - Rules: architecture/rules.md
+      - Enforcement: architecture/enforcement.md
+  - Deployment:
+      - Production: deployment/production.md
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.superfences
+  - toc:
+      permalink: true

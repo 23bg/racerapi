@@ -54,8 +54,8 @@ dev = [
 racerapi = "racerapi.console:main"
 
 [project.urls]
-Homepage = "https://github.com/your-org/racerapi"
-Documentation = "https://github.com/your-org/racerapi#readme"
+Homepage = "https://github.com/23bg/racerapi"
+Documentation = "https://github.com/23bg/racerapi#readme"
 
 
 [tool.setuptools.packages.find]

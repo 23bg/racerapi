@@ -2,7 +2,7 @@ site_name: RacerAPI Engineering Handbook
 site_description: FastAPI modular monolith architecture and development contract
 site_url: https://example.com/racerapi-docs
 repo_name: racerapi
-repo_url: https://github.com/your-org/racerapi
+repo_url: https://github.com/23bg/racerapi
 
 nav:
   - Home: index.md

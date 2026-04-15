@@ -2,11 +2,11 @@ from collections.abc import Generator
 
 from sqlalchemy.orm import Session
 
-from racerapi.db.session import SessionLocal
+from racerapi.db.session import get_session
 
 
 def get_db() -> Generator[Session, None, None]:
-    db = SessionLocal()
+    db = get_session()
     try:
         yield db
     finally:

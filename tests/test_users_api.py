@@ -1,27 +1,10 @@
-from fastapi.testclient import TestClient
-
-from racerapi.db.base import Base
-from racerapi.db.session import engine
-from racerapi.main import app
-
-client = TestClient(app)
-
-
-def setup_module() -> None:
-    Base.metadata.create_all(bind=engine)
-
-
-def teardown_module() -> None:
-    Base.metadata.drop_all(bind=engine)
-
-
-def test_health_endpoint():
+def test_health_endpoint(client):
     response = client.get("/health")
     assert response.status_code == 200
     assert response.json()["status"] == "ok"
 
 
-def test_users_crud_flow():
+def test_users_crud_flow(client):
     create = client.post(
         "/users", json={"email": "api@example.com", "full_name": "Api User"}
     )
@@ -41,7 +24,7 @@ def test_users_crud_flow():
     assert listed.json()["total"] >= 1
 
 
-def test_users_duplicate_email_returns_conflict_error_payload():
+def test_users_duplicate_email_returns_conflict_error_payload(client):
     first = client.post(
         "/users", json={"email": "dup@example.com", "full_name": "First"}
     )
@@ -57,7 +40,7 @@ def test_users_duplicate_email_returns_conflict_error_payload():
     assert body["error"]["request_id"] is not None
 
 
-def test_not_found_error_returns_safe_payload_and_request_id_header():
+def test_not_found_error_returns_safe_payload_and_request_id_header(client):
     response = client.get("/users/999999", headers={"x-request-id": "req-123"})
 
     assert response.status_code == 404

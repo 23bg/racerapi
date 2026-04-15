@@ -2,6 +2,7 @@ from typing import Literal
 
 from pydantic import model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+import os
 
 
 class Settings(BaseSettings):
@@ -17,6 +18,12 @@ class Settings(BaseSettings):
             raise ValueError("RACERAPI_DATABASE_URL must not use sqlite in prod")
         if self.env == "prod" and self.debug:
             raise ValueError("RACERAPI_DEBUG must be false in prod")
+        # In production require explicit RACERAPI_DATABASE_URL env var to avoid
+        # accidentally using a default/dev DB. This enforces a fail-fast
+        # configuration for production environments.
+        if self.env == "prod":
+            if "RACERAPI_DATABASE_URL" not in os.environ:
+                raise ValueError("RACERAPI_DATABASE_URL must be set in production environment")
         return self
 
     model_config = SettingsConfigDict(env_file=".env", env_prefix="RACERAPI_")

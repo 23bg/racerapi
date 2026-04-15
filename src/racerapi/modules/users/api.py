@@ -1,49 +1,45 @@
-from fastapi import APIRouter, Depends, Query, status
+from fastapi import APIRouter, Depends
 
-from racerapi.modules.users.deps import get_user_service
-from racerapi.modules.users.schemas import (
-    UserCreate,
-    UserRead,
-    UsersListResponse,
-    UserUpdate,
-)
-from racerapi.modules.users.service import UserService
+try:
+    from racerapi.modules.registry import register_router
+except Exception:
+    register_router = None
+
+from .deps import get_user_service
+from .schemas import UserRead, UserCreate, UserUpdate
 
 router = APIRouter(prefix="/users", tags=["users"])
 
 
-@router.get("", response_model=UsersListResponse)
-def list_users(
-    page: int = Query(default=1, ge=1),
-    page_size: int = Query(default=20, ge=1, le=100),
-    service: UserService = Depends(get_user_service),
-):
-    items, total = service.list_users(page=page, page_size=page_size)
-    return UsersListResponse(
-        items=[UserRead.model_validate(x) for x in items], total=total
-    )
+@router.get("")
+def list_items(service = Depends(get_user_service)):
+    items, total = service.list_items(page=1, page_size=100)
+    return {"items": [ UserRead.model_validate(x) for x in items ], "total": total}
 
 
-@router.post("", response_model=UserRead, status_code=status.HTTP_201_CREATED)
-def create_user(
-    payload: UserCreate,
-    service: UserService = Depends(get_user_service),
-):
-    user = service.create_user(payload)
-    return UserRead.model_validate(user)
+@router.post("", response_model=UserRead, status_code=201)
+def create_item(payload: UserCreate, service = Depends(get_user_service)):
+    entity = service.create(payload)
+    return UserRead.model_validate(entity)
 
 
-@router.get("/{user_id}", response_model=UserRead)
-def get_user(user_id: int, service: UserService = Depends(get_user_service)):
-    user = service.get_user(user_id)
-    return UserRead.model_validate(user)
+@router.get("/{item_id}", response_model=UserRead)
+def get_item(item_id: int, service = Depends(get_user_service)):
+    obj = service.get_by_id(item_id)
+    return UserRead.model_validate(obj)
 
 
-@router.patch("/{user_id}", response_model=UserRead)
-def patch_user(
-    user_id: int,
-    payload: UserUpdate,
-    service: UserService = Depends(get_user_service),
-):
-    user = service.update_user(user_id=user_id, payload=payload)
-    return UserRead.model_validate(user)
+@router.patch("/{item_id}", response_model=UserRead)
+def patch_item(item_id: int, payload: UserUpdate, service = Depends(get_user_service)):
+    obj = service.update(item_id, payload)
+    return UserRead.model_validate(obj)
+
+
+@router.delete("/{item_id}")
+def delete_item(item_id: int, service = Depends(get_user_service)):
+    service.delete(item_id)
+    return {"ok": True}
+
+
+if register_router:
+    register_router(router)
