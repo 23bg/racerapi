@@ -1,4 +1,4 @@
-from racerapi.core.exceptions import NotFoundError, ConflictError, ValidationError
+from racerapi.core.exceptions import ConflictError, NotFoundError, ValidationError
 from .repo import TestgenRepo
 from .schemas import TestgenCreate, TestgenUpdate
 

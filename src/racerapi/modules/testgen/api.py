@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 
 from racerapi.modules.registry import register_router
 from .deps import get_testgen_service
-from .schemas import TestgenRead, TestgenCreate, TestgenUpdate
+from .schemas import TestgenRead, TestgenCreate
 
 router = APIRouter(prefix="/testgen", tags=["testgen"])
 
