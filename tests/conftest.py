@@ -3,6 +3,8 @@ import sys
 from pathlib import Path
 
 import pytest
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 # Ensure the package src is importable before any racerapi imports
 ROOT = Path(__file__).resolve().parents[1]
@@ -13,10 +15,6 @@ if str(SRC) not in sys.path:
 # Ensure tests run with a safe test DB by default
 os.environ.setdefault("RACERAPI_ENV", "test")
 os.environ.setdefault("RACERAPI_DATABASE_URL", "sqlite+pysqlite:///:memory:")
-
-
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
 
 from racerapi.db.base import Base
 
@@ -56,9 +54,8 @@ def db_session(db_engine):
 def client(db_session):
     """Test client that overrides DB dependency to use the test session."""
     from fastapi.testclient import TestClient
-
-    from racerapi.main import app
     from racerapi.core.deps import get_db as _get_db
+    from racerapi.main import app
 
     def _override_get_db():
         try:
