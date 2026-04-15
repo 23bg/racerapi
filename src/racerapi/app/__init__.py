@@ -6,6 +6,10 @@ from fastapi import FastAPI
 
 from racerapi.core.logger import get_logger, set_request_id
 from racerapi.modules.registry import discover_modules, get_routers
+from racerapi.core.config import settings
+from racerapi.db.base import Base
+from racerapi.db.session import get_engine
+from racerapi.db import models_registry
 
 logger = get_logger(__name__)
 
@@ -51,6 +55,13 @@ def create_app(
 
     # discover modules and register their routers
     discover_modules()
+    # In test environment, create the database schema to ensure
+    # TestClient-created apps (tests that don't use DB fixtures) have
+    # tables available. This is strictly limited to `test` env to
+    # avoid runtime schema changes in dev/prod.
+    if getattr(settings, "env", None) == "test":
+        engine = get_engine()
+        Base.metadata.create_all(bind=engine)
     for r in get_routers():
         app.include_router(r)
     return app

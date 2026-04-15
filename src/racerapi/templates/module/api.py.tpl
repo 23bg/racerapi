@@ -23,19 +23,19 @@ def create_item(payload: {Name}Create, service = Depends(get_{singular}_service)
     return {Name}Read.model_validate(entity)
 
 
-@router.get("/{item_id}", response_model={Name}Read)
+@router.get("/{{item_id}}", response_model={Name}Read)
 def get_item(item_id: int, service = Depends(get_{singular}_service)):
     obj = service.get_by_id(item_id)
     return {Name}Read.model_validate(obj)
 
 
-@router.patch("/{item_id}", response_model={Name}Read)
+@router.patch("/{{item_id}}", response_model={Name}Read)
 def patch_item(item_id: int, payload: {Name}Update, service = Depends(get_{singular}_service)):
     obj = service.update(item_id, payload)
     return {Name}Read.model_validate(obj)
 
 
-@router.delete("/{item_id}")
+@router.delete("/{{item_id}}")
 def delete_item(item_id: int, service = Depends(get_{singular}_service)):
     service.delete(item_id)
     return {{"ok": True}}

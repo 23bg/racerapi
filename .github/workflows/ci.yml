@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.11]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[dev]
+      - name: Lint (ruff)
+        run: |
+          pip install ruff
+          ruff check .
+      - name: Run tests
+        run: |
+          pytest -q
+      - name: Architecture check
+        run: |
+          python scripts/check_architecture.py
+      - name: CLI smoke tests
+        run: |
+          python -m racerapi.console --help
+          python -m racerapi.console new ci_demo --path .ci_tmp || true
+          python -m racerapi.console generate module ci_test --path .ci_tmp/ci_demo || true
+          rm -rf .ci_tmp || true

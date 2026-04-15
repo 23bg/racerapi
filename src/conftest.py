@@ -14,6 +14,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from racerapi.db.base import Base
+from racerapi.db import models_registry
 
 
 @pytest.fixture(scope="function")
@@ -21,6 +22,8 @@ def db_engine(tmp_path):
     url = os.environ.get("RACERAPI_DATABASE_URL", "sqlite+pysqlite:///:memory:")
     connect_args = {"check_same_thread": False}
     engine = create_engine(url, future=True, connect_args=connect_args)
+    # Ensure all models are imported so Base.metadata is populated
+    # (models are imported as a side-effect of models_registry import)
     Base.metadata.create_all(bind=engine)
     yield engine
     Base.metadata.drop_all(bind=engine)

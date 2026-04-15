@@ -66,8 +66,6 @@ def discover_modules() -> None:
 
     # Also discover modules under a user project in the working directory (src/<pkg>/modules)
     try:
-        from pathlib import Path
-
         cwd_src = Path.cwd() / "src"
         if cwd_src.exists():
             for pkg in cwd_src.iterdir():

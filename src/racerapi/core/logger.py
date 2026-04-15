@@ -64,7 +64,10 @@ def configure_logging(level: int | None = None) -> None:
         handler.setFormatter(logging.Formatter(fmt))
 
     root.addHandler(handler)
+    # Ensure the filter runs on both the root logger and the handler so
+    # `request_id` is always injected into the LogRecord before formatting.
     root.addFilter(RequestIdFilter())
+    handler.addFilter(RequestIdFilter())
     _CONFIGURED = True
 
 
