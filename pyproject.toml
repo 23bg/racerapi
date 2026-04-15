@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "racerapi"
-version = "0.0.5"
+version = "0.0.6"
 description = "Production-grade FastAPI modular monolith"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -32,6 +32,8 @@ dependencies = [
   "sqlalchemy==2.0.36",
   "pydantic==2.10.3",
   "pydantic-settings==2.6.1",
+  "typer[all]==0.10.0",
+  "alembic==1.11.1",
   "email-validator==2.2.0",
 ]
 
@@ -48,7 +50,8 @@ dev = [
 ]
 
 [project.scripts]
-racerapi = "racerapi.main:run"
+# Entry point for the stable console script. Delegates to Typer implementations.
+racerapi = "racerapi.console:main"
 
 [project.urls]
 Homepage = "https://github.com/your-org/racerapi"
@@ -59,7 +62,7 @@ Documentation = "https://github.com/your-org/racerapi#readme"
 where = ["src"]
 
 [tool.setuptools.package-data]
-racerapi = []
+racerapi = ["templates/**/*"]
 
 [tool.black]
 line-length = 88
