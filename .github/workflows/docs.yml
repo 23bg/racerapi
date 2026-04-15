@@ -1,5 +1,9 @@
 name: Build and Deploy Docs
 
+permissions:
+  contents: write
+  pages: write
+
 on:
   push:
     branches: [ main ]
@@ -25,6 +29,12 @@ jobs:
 
       - name: Build site
         run: mkdocs build
+
+      - name: Configure Git for deployment
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
 
       - name: Deploy to GitHub Pages
         env:

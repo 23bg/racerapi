@@ -3,14 +3,14 @@ site_description: Production-grade FastAPI modular framework
 site_author: RacerAPI Team
 theme:
   name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - content.code.copy
+    - content.tabs.link
 plugins:
   - search
   - mermaid2
-features:
-  - navigation.tabs
-  - navigation.sections
-  - content.code.copy
-  - content.tabs.link
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
