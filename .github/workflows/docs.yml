@@ -29,4 +29,5 @@ jobs:
       - name: Deploy to GitHub Pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: mkdocs gh-deploy --force --message "Docs deploy: ${{ github.sha }}"
+        run: |
+          mkdocs gh-deploy --force --message "Docs deploy: ${{ github.sha }}"
