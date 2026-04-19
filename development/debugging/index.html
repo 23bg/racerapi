@@ -10,26 +10,28 @@
       
       
       
-        <link rel="canonical" href="https://example.com/racerapi-docs/">
+        <link rel="canonical" href="https://example.com/racerapi-docs/development/debugging/">
       
       
+        <link rel="prev" href="../testing/">
       
-        <link rel="next" href="architecture/overview/">
+      
+        <link rel="next" href="../../standards/coding-rules/">
       
       
         
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>RacerAPI Engineering Handbook</title>
+        <title>Debugging - RacerAPI Engineering Handbook</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
       
 
@@ -48,9 +50,9 @@
       
     
     
-      <link rel="stylesheet" href="stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -68,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#racerapi-engineering-handbook" class="md-skip">
+        <a href="#debugging-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -84,7 +86,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="RacerAPI Engineering Handbook" class="md-header__button md-logo" aria-label="RacerAPI Engineering Handbook" data-md-component="logo">
+    <a href="../.." title="RacerAPI Engineering Handbook" class="md-header__button md-logo" aria-label="RacerAPI Engineering Handbook" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -104,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              Debugging
             
           </span>
         </div>
@@ -194,7 +196,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="RacerAPI Engineering Handbook" class="md-nav__button md-logo" aria-label="RacerAPI Engineering Handbook" data-md-component="logo">
+    <a href="../.." title="RacerAPI Engineering Handbook" class="md-nav__button md-logo" aria-label="RacerAPI Engineering Handbook" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -221,37 +223,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Home
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -267,59 +242,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#system-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        System Summary
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#non-negotiable-rules" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Non-Negotiable Rules
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#read-this-in-order" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Read This In Order
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -385,7 +307,7 @@
   
   
     <li class="md-nav__item">
-      <a href="architecture/overview/" class="md-nav__link">
+      <a href="../../architecture/overview/" class="md-nav__link">
         
   
   
@@ -413,7 +335,7 @@
   
   
     <li class="md-nav__item">
-      <a href="architecture/modular-monolith/" class="md-nav__link">
+      <a href="../../architecture/modular-monolith/" class="md-nav__link">
         
   
   
@@ -441,7 +363,7 @@
   
   
     <li class="md-nav__item">
-      <a href="architecture/request-flow/" class="md-nav__link">
+      <a href="../../architecture/request-flow/" class="md-nav__link">
         
   
   
@@ -469,7 +391,7 @@
   
   
     <li class="md-nav__item">
-      <a href="architecture/dependency-injection/" class="md-nav__link">
+      <a href="../../architecture/dependency-injection/" class="md-nav__link">
         
   
   
@@ -497,7 +419,7 @@
   
   
     <li class="md-nav__item">
-      <a href="architecture/module-boundaries/" class="md-nav__link">
+      <a href="../../architecture/module-boundaries/" class="md-nav__link">
         
   
   
@@ -586,7 +508,7 @@
   
   
     <li class="md-nav__item">
-      <a href="modules/structure/" class="md-nav__link">
+      <a href="../../modules/structure/" class="md-nav__link">
         
   
   
@@ -614,7 +536,7 @@
   
   
     <li class="md-nav__item">
-      <a href="modules/users/" class="md-nav__link">
+      <a href="../../modules/users/" class="md-nav__link">
         
   
   
@@ -642,7 +564,7 @@
   
   
     <li class="md-nav__item">
-      <a href="modules/adding-new-module/" class="md-nav__link">
+      <a href="../../modules/adding-new-module/" class="md-nav__link">
         
   
   
@@ -731,7 +653,7 @@
   
   
     <li class="md-nav__item">
-      <a href="backend/api-layer/" class="md-nav__link">
+      <a href="../../backend/api-layer/" class="md-nav__link">
         
   
   
@@ -759,7 +681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="backend/service-layer/" class="md-nav__link">
+      <a href="../../backend/service-layer/" class="md-nav__link">
         
   
   
@@ -787,7 +709,7 @@
   
   
     <li class="md-nav__item">
-      <a href="backend/repo-layer/" class="md-nav__link">
+      <a href="../../backend/repo-layer/" class="md-nav__link">
         
   
   
@@ -815,7 +737,7 @@
   
   
     <li class="md-nav__item">
-      <a href="backend/schemas/" class="md-nav__link">
+      <a href="../../backend/schemas/" class="md-nav__link">
         
   
   
@@ -904,7 +826,7 @@
   
   
     <li class="md-nav__item">
-      <a href="core/config/" class="md-nav__link">
+      <a href="../../core/config/" class="md-nav__link">
         
   
   
@@ -932,7 +854,7 @@
   
   
     <li class="md-nav__item">
-      <a href="core/database/" class="md-nav__link">
+      <a href="../../core/database/" class="md-nav__link">
         
   
   
@@ -960,7 +882,7 @@
   
   
     <li class="md-nav__item">
-      <a href="core/dependencies/" class="md-nav__link">
+      <a href="../../core/dependencies/" class="md-nav__link">
         
   
   
@@ -988,7 +910,7 @@
   
   
     <li class="md-nav__item">
-      <a href="core/error-handling/" class="md-nav__link">
+      <a href="../../core/error-handling/" class="md-nav__link">
         
   
   
@@ -1020,8 +942,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -1032,13 +956,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
@@ -1059,7 +981,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1077,7 +999,7 @@
   
   
     <li class="md-nav__item">
-      <a href="development/setup/" class="md-nav__link">
+      <a href="../setup/" class="md-nav__link">
         
   
   
@@ -1105,7 +1027,7 @@
   
   
     <li class="md-nav__item">
-      <a href="development/running/" class="md-nav__link">
+      <a href="../running/" class="md-nav__link">
         
   
   
@@ -1133,7 +1055,7 @@
   
   
     <li class="md-nav__item">
-      <a href="development/testing/" class="md-nav__link">
+      <a href="../testing/" class="md-nav__link">
         
   
   
@@ -1158,10 +1080,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="development/debugging/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1177,6 +1126,103 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#debugging-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debugging Order
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layer-oriented-triage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layer-Oriented Triage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DO
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dont" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DON'T
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-break-the-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Break the Rule
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1250,7 +1296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="standards/coding-rules/" class="md-nav__link">
+      <a href="../../standards/coding-rules/" class="md-nav__link">
         
   
   
@@ -1278,7 +1324,7 @@
   
   
     <li class="md-nav__item">
-      <a href="standards/anti-patterns/" class="md-nav__link">
+      <a href="../../standards/anti-patterns/" class="md-nav__link">
         
   
   
@@ -1306,7 +1352,7 @@
   
   
     <li class="md-nav__item">
-      <a href="standards/review-checklist/" class="md-nav__link">
+      <a href="../../standards/review-checklist/" class="md-nav__link">
         
   
   
@@ -1361,10 +1407,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#system-summary" class="md-nav__link">
+  <a href="#debugging-order" class="md-nav__link">
     <span class="md-ellipsis">
       
-        System Summary
+        Debugging Order
       
     </span>
   </a>
@@ -1372,10 +1418,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#non-negotiable-rules" class="md-nav__link">
+  <a href="#layer-oriented-triage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Non-Negotiable Rules
+        Layer-Oriented Triage
       
     </span>
   </a>
@@ -1383,10 +1429,54 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#read-this-in-order" class="md-nav__link">
+  <a href="#example-workflow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Read This In Order
+        Example Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DO
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dont" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DON'T
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Mistakes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-break-the-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Break the Rule
       
     </span>
   </a>
@@ -1413,42 +1503,42 @@
   
 
 
-<h1 id="racerapi-engineering-handbook">RacerAPI Engineering Handbook<a class="headerlink" href="#racerapi-engineering-handbook" title="Permanent link">&para;</a></h1>
-<p>This documentation is the architecture contract for this backend.</p>
-<p>If you follow this handbook, you get:</p>
-<ul>
-<li>predictable code paths</li>
-<li>testable business logic</li>
-<li>safe module isolation</li>
-<li>low-risk onboarding for new engineers</li>
-</ul>
-<p>If you ignore this handbook, you will produce hidden coupling, flaky tests, and expensive refactors.</p>
-<h2 id="system-summary">System Summary<a class="headerlink" href="#system-summary" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Runtime: FastAPI</li>
-<li>Architecture: modular monolith</li>
-<li>Layers: API -&gt; Service -&gt; Repo -&gt; DB</li>
-<li>DI mechanism: FastAPI Depends only</li>
-<li>State model: no global mutable state</li>
-<li>Boundary model: no cross-module imports</li>
-</ul>
-<h2 id="non-negotiable-rules">Non-Negotiable Rules<a class="headerlink" href="#non-negotiable-rules" title="Permanent link">&para;</a></h2>
-<ul>
-<li>API layer does validation and transport only.</li>
-<li>Service layer owns business rules and orchestration.</li>
-<li>Repo layer does persistence only.</li>
-<li>A module may import itself and core/shared only.</li>
-<li>No module imports another module directly.</li>
-</ul>
-<h2 id="read-this-in-order">Read This In Order<a class="headerlink" href="#read-this-in-order" title="Permanent link">&para;</a></h2>
+<h1 id="debugging-guide">Debugging Guide<a class="headerlink" href="#debugging-guide" title="Permanent link">&para;</a></h1>
+<h2 id="debugging-order">Debugging Order<a class="headerlink" href="#debugging-order" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Architecture overview</li>
-<li>Request flow</li>
-<li>Dependency injection</li>
-<li>Module boundaries</li>
-<li>Add new module guide</li>
-<li>Coding rules and review checklist</li>
+<li>Reproduce with failing test.</li>
+<li>Confirm layer where behavior diverges.</li>
+<li>Fix in correct layer only.</li>
+<li>Add regression test.</li>
 </ol>
+<h2 id="layer-oriented-triage">Layer-Oriented Triage<a class="headerlink" href="#layer-oriented-triage" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Wrong status code or response shape -&gt; API layer</li>
+<li>Wrong business decision -&gt; Service layer</li>
+<li>Wrong data returned/written -&gt; Repo layer</li>
+<li>Session/config issues -&gt; Core/DB layer</li>
+</ul>
+<h2 id="example-workflow">Example Workflow<a class="headerlink" href="#example-workflow" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>pytest<span class="w"> </span>tests/test_users_service.py<span class="w"> </span>-q
+pytest<span class="w"> </span>tests/test_users_api.py<span class="w"> </span>-q
+</code></pre></div>
+<h2 id="do">DO<a class="headerlink" href="#do" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Start debugging from failing behavior, not assumptions.</li>
+<li>Keep breakpoints near boundary transitions.</li>
+</ul>
+<h2 id="dont">DON'T<a class="headerlink" href="#dont" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Patch symptom in API if root cause is service/repo.</li>
+<li>Add broad try/except to silence failures.</li>
+</ul>
+<h2 id="common-mistakes">Common Mistakes<a class="headerlink" href="#common-mistakes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fixing test to match bug.</li>
+<li>Introducing cross-module import during emergency patch.</li>
+</ul>
+<h2 id="when-to-break-the-rule">When to Break the Rule<a class="headerlink" href="#when-to-break-the-rule" title="Permanent link">&para;</a></h2>
+<p>Temporary hotfixes are allowed only with follow-up ticket and regression test in same change set.</p>
 
 
 
@@ -1498,10 +1588,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
